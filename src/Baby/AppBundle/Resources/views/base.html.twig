@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Baby Brouwer&#x2122; Wat wordt het?{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+    {% stylesheets '@BabyAppBundle/Resources/public/stylesheets/main.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="main-container">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}

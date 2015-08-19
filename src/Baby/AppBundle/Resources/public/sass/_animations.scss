@@ -1,0 +1,7 @@
+@import "variables";
+@import "compass/css3/animation";
+
+@include keyframes(background-normal) {
+  0% {background-color: $boy-color};
+  100% {background-color: $girl-color};
+}

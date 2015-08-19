@@ -1,0 +1,52 @@
+@import "variables";
+
+@import "compass";
+@import "animations";
+
+body {
+  @include animation(background-normal 5s infinite alternate);
+}
+
+// Defaults
+.main-container {
+  background-color: $main-bg-color;
+
+  margin-top: 10px;
+  margin-right: 10px;
+
+  min-height: 100px;
+
+  @include border-right-radius(10px);
+}
+
+// Phones <768px
+
+// Tables >=768px
+@media all and (min-width: 768px) and (max-width: 991px) {
+  .main-container {
+    margin-top: 20px;
+    margin-right: 20px;
+
+    @include border-right-radius(20px);
+  }
+}
+
+// Desktops >=992px
+@media all and (min-width: 992px) and (max-width: 1199px) {
+  .main-container {
+    margin-top: 40px;
+    margin-right: 40px;
+
+    @include border-right-radius(40px);
+  }
+}
+
+// HD >= 1200px
+@media all and (min-width: 1200px) {
+  .main-container {
+    margin-top: 100px;
+    margin-right: 100px;
+
+    @include border-right-radius(100px);
+  }
+}
