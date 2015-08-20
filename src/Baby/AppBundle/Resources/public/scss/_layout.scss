@@ -1,21 +1,17 @@
-@import "variables";
-
-@import "compass";
-@import "animations";
-
-body {
-  @include animation(background-normal 5s infinite alternate);
-  color: $main-text-color;
+// Defaults
+.container > .row {
+  margin-left: 0;
 }
 
-// Defaults
 .main-container {
-  background-color: $main-bg-color;
+  background-color: $container-color;
 
   margin-top: 10px;
-  margin-right: 10px;
+  //margin-right: 10px;
 
   min-height: 100px;
+
+  padding: 10px;
 
   @include border-right-radius(10px);
 }
@@ -26,7 +22,9 @@ body {
 @media all and (min-width: 768px) and (max-width: 991px) {
   .main-container {
     margin-top: 20px;
-    margin-right: 20px;
+    //margin-right: 20px;
+
+    padding: 20px;
 
     @include border-right-radius(20px);
   }
@@ -36,7 +34,9 @@ body {
 @media all and (min-width: 992px) and (max-width: 1199px) {
   .main-container {
     margin-top: 40px;
-    margin-right: 40px;
+    //margin-right: 40px;
+
+    padding: 40px;
 
     @include border-right-radius(40px);
   }
@@ -46,7 +46,9 @@ body {
 @media all and (min-width: 1200px) {
   .main-container {
     margin-top: 100px;
-    margin-right: 100px;
+    //margin-right: 100px;
+
+    padding: 100px;
 
     @include border-right-radius(100px);
   }

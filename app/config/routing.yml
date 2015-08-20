@@ -1,4 +1,3 @@
 baby_app:
     resource: "@BabyAppBundle/Controller/"
     type:     annotation
-    prefix:   /

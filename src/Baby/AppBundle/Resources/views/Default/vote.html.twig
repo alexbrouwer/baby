@@ -1,5 +1,6 @@
 {% extends 'BabyAppBundle::base.html.twig' %}
 
 {% block content %}
-    <a href="{{ url('baby_app_default_vote') }}">Stem</a>
+    <h1>Stemmen</h1>
+    {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {% endblock %}
