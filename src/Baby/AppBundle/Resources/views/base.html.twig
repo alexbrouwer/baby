@@ -4,7 +4,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
-    {% stylesheets '@BabyAppBundle/Resources/public/stylesheets/main.css' filter='cssrewrite' %}
+    {% stylesheets '@BabyAppBundle/Resources/public/stylesheets/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 {% endblock %}
