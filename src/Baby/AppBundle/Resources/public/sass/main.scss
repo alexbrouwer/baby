@@ -5,6 +5,7 @@
 
 body {
   @include animation(background-normal 5s infinite alternate);
+  color: $main-text-color;
 }
 
 // Defaults
