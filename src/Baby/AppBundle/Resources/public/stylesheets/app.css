@@ -9466,7 +9466,7 @@ th.hide-for-touch {
 /* line 2, ../scss/_layout.scss */
 .container {
   margin-right: 10px;
-  margin-bottom: 10px;
+  padding-right: 10px;
 }
 /* line 6, ../scss/_layout.scss */
 .container > .row {
