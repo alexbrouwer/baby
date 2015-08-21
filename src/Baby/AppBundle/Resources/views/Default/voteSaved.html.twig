@@ -1,9 +1,31 @@
 {% extends 'BabyAppBundle::main.html.twig' %}
 
 {% block content %}
-    <h1>Bedankt voor je stem!</h1>
+    <div class="row">
+        <div class="columns small-12">
+            <h1>Bedankt voor je stem {{ first_name }}!</h1>
 
-    <p>
-        Bla bla bla. Keuze tonen en iets over e-mail.
-    </p>
+            <p>
+                Leuk dat je een gokje wilde wagen! Misschien heb je gelijk, maar misschien ook niet.<br>
+                Als het zover is krijg je van ons een mailtje met een link die je laat zien of we een jongen of een meisje krijgen.<br>
+                <br>
+                We houden je op de hoogte!<br>
+                <br>
+                Liefs, Lies en Alex
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns small-6">
+            <div class="text-center">
+                <h4>{{ vote_total }} mensen denken een {% if vote == 'boy' %}jongen{% else %}meisje{% endif %}</h4>
+                <span class="vote-block boy">{{ vote_percentage }}%</span>
+            </div>
+        </div>
+        <div class="columns small-6">
+            <ul class="inline-list">
+                <li><a href="{{ url('baby_app_default_viewvoters') }}">Bekijk stemmers</a></li>
+            </ul>
+        </div>
+    </div>
 {% endblock %}

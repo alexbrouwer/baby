@@ -44,7 +44,6 @@ class DefaultController extends Controller
             'boy_total' => $boyVotes,
             'girl_percentage' => (int)round(($girlVotes / $totalVotes) * 100, 0),
             'girl_total' => $girlVotes,
-
             'total_votes' => $totalVotes,
         );
     }
@@ -95,7 +94,10 @@ class DefaultController extends Controller
             $em->flush();
 
             // redirect
-            return $this->redirectToRoute('baby_app_default_votesaved');
+            return $this->redirectToRoute(
+                'baby_app_default_votesaved',
+                array('vote' => $vote->getVote(), 'first_name' => $vote->getFirstname())
+            );
         }
 
         return array(
@@ -107,10 +109,20 @@ class DefaultController extends Controller
      * @Route("/bedankt")
      * @Template()
      */
-    public function voteSavedAction()
+    public function voteSavedAction(Request $request)
     {
-        // TODO send email
-        return array();
+        $voteStats = $this->getVoteStats();
+
+        $vote = $request->query->get('vote');
+        $voteTotal = $voteStats[$vote.'_total'];
+        $votePercentage = $voteStats[$vote.'_percentage'];
+
+        return array(
+            'vote' => $vote,
+            'vote_total' => $voteTotal,
+            'vote_percentage' => $votePercentage,
+            'first_name' => $request->query->get('first_name')
+        );
     }
 
     /**
