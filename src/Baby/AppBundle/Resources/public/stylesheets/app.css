@@ -6514,7 +6514,7 @@ table thead tr td {
   color: #F5F5F5;
   font-size: 1.5rem;
   font-weight: bold;
-  padding: 0.5rem 1.25rem 0.625rem;
+  padding: 0.5rem 0.625rem 0.625rem;
 }
 /* line 92, ../bower_components/foundation/scss/foundation/components/_tables.scss */
 table tfoot {
@@ -6526,14 +6526,14 @@ table tfoot tr td {
   color: #F5F5F5;
   font-size: 1.5rem;
   font-weight: bold;
-  padding: 0.5rem 1.25rem 0.625rem;
+  padding: 0.5rem 0.625rem 0.625rem;
 }
 /* line 107, ../bower_components/foundation/scss/foundation/components/_tables.scss */
 table tr th,
 table tr td {
   color: #F5F5F5;
   font-size: 1.125rem;
-  padding: 0.625rem 1.25rem;
+  padding: 0.5625rem 0.625rem;
   text-align: left;
 }
 /* line 115, ../bower_components/foundation/scss/foundation/components/_tables.scss */
