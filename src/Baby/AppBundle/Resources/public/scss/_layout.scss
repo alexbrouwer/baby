@@ -18,6 +18,11 @@
   @include border-right-radius(10px);
 }
 
+.back-link {
+  float: right;
+  line-height: $h1-font-size * $header-line-height;
+}
+
 // Phones <768px
 
 // Tables >=768px

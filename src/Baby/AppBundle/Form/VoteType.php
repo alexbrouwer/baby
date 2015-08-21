@@ -20,7 +20,8 @@ class VoteType extends AbstractType
             ->add('email', 'email', array('label' => 'E-mail', 'required' => true))
             ->add('firstname', 'text', array('label' => 'Voornaam', 'required' => true))
             ->add('lastname', 'text', array('label' => 'Achternaam', 'required' => true))
-            ->add('save', 'submit', array('label' => 'Stem'));
+            ->add('save', 'submit', array('label' => 'Stem'))
+        ;
     }
 
     /**
