@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class VoteRepository extends EntityRepository
 {
+    public function getVotesCountGroupedByVote() {
+        $qb = $this->createQueryBuilder('v');
+        $qb->select('count(v.id) as num, v.vote');
+        $qb->addGroupBy('v.vote');
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

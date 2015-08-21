@@ -10,6 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Vote
 {
+    const VOTE_BOY = 'boy';
+    const VOTE_GIRL = 'girl';
+
     /**
      * @var integer
      */

@@ -47,6 +47,7 @@
 // Custom components
 @import "animations";
 @import "layout";
+@import "vote-block";
 
 body {
   @include animation(background-normal 4s infinite alternate);

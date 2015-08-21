@@ -1,5 +1,44 @@
 {% extends 'BabyAppBundle::base.html.twig' %}
 
 {% block content %}
-    <a href="{{ url('baby_app_default_vote') }}">Stem</a>
+    <div class="row">
+        <div class="columns small-12">
+            <h2>Wat denk jij dat het wordt?</h2>
+
+            <p>
+                Het lijkt wel of de hele wereld wil weten wat het geslacht is van onze baby.
+                Helaas voor de wereld wordt dat pas bekend gemaakt na de geboorte.
+                Maar dat wil niet zeggen dat <strong>jij</strong> het niet mag raden!
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="columns small-6">
+            <div class="text-center">
+                <h4>{{ total_votes }} mensen hebben al gegokt</h4>
+                <a href="{{ url('baby_app_default_vote', {vote: 'boy'}) }}" class="vote-block boy">{{ boy_percentage }}%</a>
+                <a href="{{ url('baby_app_default_vote', {vote: 'girl'}) }}" class="vote-block girl">{{ girl_percentage }}%</a>
+                <div>
+                    <small>Klik om ook een gokje te wagen</small>
+                </div>
+            </div>
+        </div>
+        <div class="columns small-6">
+            <div class="panel basic radius">
+                <h4>Kleine feitjes</h4>
+                <ul class="no-bullet">
+                    {% if overdue %}
+                        <li><span class="label round alert">Uhoh! Waar blijft hij/zij nou?</span></li>
+                    {% endif %}
+                    <li><span class="label round info">{{ weeks_pregnant }} <strong>weken</strong> zwanger</span></li>
+                    <li><span class="label round info">{{ months_pregnant }} <strong>maanden</strong> zwanger</span></li>
+                </ul>
+            </div>
+
+            <ul class="inline-list">
+                <li><a href="#">Bekijk stemmers</a></li>
+            </ul>
+        </div>
+    </div>
+    {% dump %}
 {% endblock %}

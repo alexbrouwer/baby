@@ -2,6 +2,7 @@
 
 namespace Baby\AppBundle\Form;
 
+use Baby\AppBundle\Entity\Vote;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,7 +16,7 @@ class VoteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('vote', 'choice', array('label' => 'Keuze', 'required' => true, 'choices' => array('boy' => 'Jongen', 'girl' => 'Meisje'), 'expanded' => true))
+            ->add('vote', 'choice', array('label' => 'Keuze', 'required' => true, 'choices' => array(Vote::VOTE_BOY => 'Jongen', Vote::VOTE_GIRL => 'Meisje'), 'expanded' => true))
             ->add('email', 'email', array('label' => 'E-mail', 'required' => true))
             ->add('firstname', 'text', array('label' => 'Voornaam', 'required' => true))
             ->add('lastname', 'text', array('label' => 'Achternaam', 'required' => true))

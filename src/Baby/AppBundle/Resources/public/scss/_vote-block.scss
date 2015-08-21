@@ -1,0 +1,37 @@
+.vote-block {
+  border-width: 10px;
+  border-style: solid;
+  @include border-radius($global-rounded);
+
+  background-color: $oil;
+
+  color: $body-font-color;
+  font-size: rem-calc(30);
+  line-height: rem-calc(100-30+5);
+  font-weight: $font-weight-bold;
+
+  width: 100px;
+  height: 100px;
+
+  margin: rem-calc(20);
+
+  &.boy {
+    border-color: $boy-color;
+    &:hover, &:active, &:focus {
+      @include box-shadow(0 0 20px $boy-color);
+    }
+  }
+  &.girl {
+    border-color: $girl-color;
+    &:hover, &:active, &:focus {
+      @include box-shadow(0 0 20px $girl-color);
+    }
+  }
+
+  &:hover, &:active, &:focus {
+    color: inherit; // Stay the same
+  }
+
+  display: inline-block;
+  text-align: center;
+}
