@@ -1,0 +1,35 @@
+{% extends 'BabyAppBundle::main.html.twig' %}
+
+{% block content %}
+    <div class="text-center">
+        <a href="{{ url('baby_app_default_vote', {vote: 'boy'}) }}" class="vote-block boy">{{ boy_percentage }}%</a>
+        <a href="{{ url('baby_app_default_vote', {vote: 'girl'}) }}" class="vote-block girl">{{ girl_percentage }}%</a>
+
+        <div>
+            <small>Klik om ook een gokje te wagen</small>
+        </div>
+
+        <h1>Stemmers</h1>
+
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th class="text-right boy-text">Jongen</th>
+                    <th class="text-justify" width="50" style="padding-left:0;padding-right:0;">
+                        <span class="boy-text">{{ boy_total }}</span> / <span class="girl-text">{{ girl_total }}</span>
+                    </th>
+                    <th class="girl-text">Meisje</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for voterSet in voters %}
+                <tr>
+                    <td class="text-right">{% if voterSet['boy'] %}{{ voterSet['boy'] }}{% endif %}</td>
+                    <td>&nbsp;</td>
+                    <td>{% if voterSet['girl'] %}{{ voterSet['girl'] }}{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

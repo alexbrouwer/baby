@@ -20,4 +20,8 @@ class VoteRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function getVotersByVote($vote) {
+        return $this->findBy(array('vote' => $vote), array('votedAt' => 'ASC'));
+    }
+
 }

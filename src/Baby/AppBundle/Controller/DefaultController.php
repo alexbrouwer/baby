@@ -12,13 +12,16 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
-     * @Template()
+     * @return \Doctrine\ORM\EntityManager
      */
-    public function indexAction()
+    protected function getEm()
     {
-        $em = $this->get('doctrine.orm.entity_manager');
-        $voteRepository = $em->getRepository('BabyAppBundle:Vote');
+        return $this->get('doctrine.orm.entity_manager');
+    }
+
+    protected function getVoteStats()
+    {
+        $voteRepository = $this->getEm()->getRepository('BabyAppBundle:Vote');
 
         $groupedVotes = $voteRepository->getVotesCountGroupedByVote();
 
@@ -36,9 +39,27 @@ class DefaultController extends Controller
             $totalVotes += $groupedVote['num'];
         }
 
+        return array(
+            'boy_percentage' => (int)round(($boyVotes / $totalVotes) * 100, 0),
+            'boy_total' => $boyVotes,
+            'girl_percentage' => (int)round(($girlVotes / $totalVotes) * 100, 0),
+            'girl_total' => $girlVotes,
+
+            'total_votes' => $totalVotes,
+        );
+    }
+
+    /**
+     * @Route("/")
+     * @Template()
+     */
+    public function indexAction()
+    {
+        $voteStats = $this->getVoteStats();
+
         $expectedDate = new \DateTime('2015-12-04');
         $endDate = clone($expectedDate);
-        $endDate->setTime(0,0,0);
+        $endDate->setTime(0, 0, 0);
         $endDate->modify('-9 months, -5 days');
         $dateDiff = $endDate->diff(new \DateTime());
 
@@ -46,16 +67,12 @@ class DefaultController extends Controller
         $numMonths = round($dateDiff->days / 30.5, 1);
 
         $data = array(
-            'boy_percentage' => (int)round(($boyVotes / $totalVotes) * 100, 0),
-            'girl_percentage' => (int)round(($girlVotes / $totalVotes) * 100, 0),
-            'total_votes' => $totalVotes,
-            'days_pregnant' => $dateDiff->days,
             'weeks_pregnant' => $numWeeks,
             'months_pregnant' => $numMonths,
             'overdue' => ((new \DateTime())->modify('+1 day') > $expectedDate),
         );
 
-        return $data;
+        return array_merge($voteStats, $data);
     }
 
     /**
@@ -73,7 +90,7 @@ class DefaultController extends Controller
         if ($form->isValid()) {
             $vote->setVotedAt(new \DateTime());
 
-            $em = $this->get('doctrine.orm.entity_manager');
+            $em = $this->getEm();
             $em->persist($vote);
             $em->flush();
 
@@ -94,5 +111,43 @@ class DefaultController extends Controller
     {
         // TODO send email
         return array();
+    }
+
+    /**
+     * @Route("/stemmen")
+     * @Template()
+     */
+    public function viewVotersAction()
+    {
+        $voteStats = $this->getVoteStats();
+
+        $voteRepository = $this->getEm()->getRepository('BabyAppBundle:Vote');
+
+        $boyVoters = $voteRepository->getVotersByVote(Vote::VOTE_BOY);
+        $girlVoters = $voteRepository->getVotersByVote(Vote::VOTE_GIRL);
+
+        if (count($boyVoters) != count($girlVoters)) {
+            $longest = max($boyVoters, $girlVoters);
+            $shortest = min($boyVoters, $girlVoters);
+        } else {
+            $longest = $boyVoters;
+            $shortest = $girlVoters;
+        }
+        $voters = array();
+        foreach ($longest as $key => $voter1) {
+            $voters[$key][$voter1->getVote()] = $voter1->getFirstName() . ' ' . $voter1->getLastName();
+            if (array_key_exists($key, $shortest)) {
+                $voter2 = $shortest[$key];
+                $voters[$key][$voter2->getVote()] = $voter2->getFirstName() . ' ' . $voter2->getLastName();
+            } else {
+                $voters[$key][$voter1->getVote() == Vote::VOTE_BOY ? Vote::VOTE_GIRL : Vote::VOTE_BOY] = false;
+            }
+        }
+
+        $data = array(
+            'voters' => $voters,
+        );
+
+        return array_merge($voteStats, $data);
     }
 }

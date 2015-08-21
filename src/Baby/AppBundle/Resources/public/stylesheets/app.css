@@ -6492,53 +6492,53 @@ ul.pagination li {
 
 /* line 131, ../bower_components/foundation/scss/foundation/components/_tables.scss */
 table {
-  background: #FFFFFF;
-  border: solid 1px #DDDDDD;
+  background: transparent;
+  border: none 1px #DDDDDD;
   margin-bottom: 1.25rem;
   table-layout: auto;
 }
 /* line 69, ../bower_components/foundation/scss/foundation/components/_tables.scss */
 table caption {
   background: transparent;
-  color: #222222;
+  color: #F5F5F5;
   font-size: 1rem;
   font-weight: bold;
 }
 /* line 78, ../bower_components/foundation/scss/foundation/components/_tables.scss */
 table thead {
-  background: #F5F5F5;
+  background: transparent;
 }
 /* line 82, ../bower_components/foundation/scss/foundation/components/_tables.scss */
 table thead tr th,
 table thead tr td {
-  color: #222222;
-  font-size: 0.875rem;
+  color: #F5F5F5;
+  font-size: 1.5rem;
   font-weight: bold;
-  padding: 0.5rem 0.625rem 0.625rem;
+  padding: 0.5rem 1.25rem 0.625rem;
 }
 /* line 92, ../bower_components/foundation/scss/foundation/components/_tables.scss */
 table tfoot {
-  background: #F5F5F5;
+  background: transparent;
 }
 /* line 96, ../bower_components/foundation/scss/foundation/components/_tables.scss */
 table tfoot tr th,
 table tfoot tr td {
-  color: #222222;
-  font-size: 0.875rem;
+  color: #F5F5F5;
+  font-size: 1.5rem;
   font-weight: bold;
-  padding: 0.5rem 0.625rem 0.625rem;
+  padding: 0.5rem 1.25rem 0.625rem;
 }
 /* line 107, ../bower_components/foundation/scss/foundation/components/_tables.scss */
 table tr th,
 table tr td {
-  color: #222222;
-  font-size: 0.875rem;
-  padding: 0.5625rem 0.625rem;
+  color: #F5F5F5;
+  font-size: 1.125rem;
+  padding: 0.625rem 1.25rem;
   text-align: left;
 }
 /* line 115, ../bower_components/foundation/scss/foundation/components/_tables.scss */
 table tr.even, table tr.alt, table tr:nth-of-type(even) {
-  background: #F9F9F9;
+  background: inherit;
 }
 /* line 120, ../bower_components/foundation/scss/foundation/components/_tables.scss */
 table thead tr th,
@@ -6548,7 +6548,7 @@ table tbody tr th,
 table tbody tr td,
 table tr td {
   display: table-cell;
-  line-height: 1.125rem;
+  line-height: 1.375rem;
 }
 
 /* line 30, ../bower_components/foundation/scss/foundation/components/_tabs.scss */
@@ -9489,12 +9489,24 @@ th.hide-for-touch {
 
 /* line 21, ../scss/_layout.scss */
 .back-link {
-  float: right;
-  line-height: 3.85rem;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #444444;
+}
+
+/* line 28, ../scss/_layout.scss */
+.boy-text {
+  color: #8fb7cc;
+}
+
+/* line 31, ../scss/_layout.scss */
+.girl-text {
+  color: #dd989b;
 }
 
 @media all and (min-width: 768px) and (max-width: 991px) {
-  /* line 30, ../scss/_layout.scss */
+  /* line 39, ../scss/_layout.scss */
   .main-container {
     margin-top: 20px;
     padding: 20px;
@@ -9505,9 +9517,15 @@ th.hide-for-touch {
     -webkit-border-bottom-right-radius: 20px;
     border-bottom-right-radius: 20px;
   }
+
+  /* line 46, ../scss/_layout.scss */
+  .back-link {
+    bottom: 20px;
+    right: 20px;
+  }
 }
 @media all and (min-width: 992px) and (max-width: 1199px) {
-  /* line 40, ../scss/_layout.scss */
+  /* line 54, ../scss/_layout.scss */
   .main-container {
     margin-top: 30px;
     padding: 30px;
@@ -9518,9 +9536,15 @@ th.hide-for-touch {
     -webkit-border-bottom-right-radius: 30px;
     border-bottom-right-radius: 30px;
   }
+
+  /* line 61, ../scss/_layout.scss */
+  .back-link {
+    bottom: 30px;
+    right: 30px;
+  }
 }
 @media all and (min-width: 1200px) {
-  /* line 50, ../scss/_layout.scss */
+  /* line 69, ../scss/_layout.scss */
   .main-container {
     margin-top: 100px;
     padding: 100px;
@@ -9530,6 +9554,12 @@ th.hide-for-touch {
     -moz-border-radius-bottomright: 100px;
     -webkit-border-bottom-right-radius: 100px;
     border-bottom-right-radius: 100px;
+  }
+
+  /* line 76, ../scss/_layout.scss */
+  .back-link {
+    bottom: 100px;
+    right: 100px;
   }
 }
 /* line 1, ../scss/_vote-block.scss */
