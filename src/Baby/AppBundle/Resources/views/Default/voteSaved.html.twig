@@ -19,7 +19,7 @@
         <div class="columns small-6">
             <div class="text-center">
                 <h4>{{ vote_total }} mensen denken een {% if vote == 'boy' %}jongen{% else %}meisje{% endif %}</h4>
-                <span class="vote-block boy">{{ vote_percentage }}%</span>
+                <span class="vote-block {{ vote }}">{{ vote_percentage }}%</span>
             </div>
         </div>
         <div class="columns small-6">
