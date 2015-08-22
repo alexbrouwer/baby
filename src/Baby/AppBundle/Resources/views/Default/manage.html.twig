@@ -1,0 +1,43 @@
+{% extends 'BabyAppBundle::default.html.twig' %}
+
+{% block content %}
+    <h1>Management</h1>
+
+    <form method="post" action="{{ url('baby_app_default_manage') }}">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th>Email</th>
+                    <th>Stem</th>
+                    <th>Sleutel</th>
+                    <th>Geactiveerd</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for voter in voters %}
+                    <tr>
+                        <td>{{ voter.firstname }} {{ voter.lastname }}</td>
+                        <td>{{ voter.email }}</td>
+                        <td class="{{ voter.vote }}-text">{% if voter.vote == 'boy' %}Jongen{% else %}Meisje{% endif %}</td>
+                        <td>{{ voter.activationKey }}</td>
+                        <td>
+                            <fieldset class="switch round small" tabindex="0">
+                                <input name="switch[]" value="{{ voter.id }}" id="activate-{{ voter.id }}" type="checkbox" {% if voter.activationKey %}checked="checked"{% endif %}>
+                                <label for="activate-{{ voter.id }}"></label>
+                            </fieldset>
+                        </td>
+                        <td>{% if voter.activationKey %}<a href="{{ url('baby_app_default_manageresend', {id: voter.id}) }}">Opnieuw</a>{% else %}&nbsp;{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-right">
+            <button class="button primary" type="submit">Opslaan</button>
+        </div>
+
+    </form>
+{% endblock %}

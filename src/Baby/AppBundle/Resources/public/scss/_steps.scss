@@ -1,0 +1,27 @@
+.step-container {
+  .step {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+}
+
+.big-text {
+  font-size: rem-calc(50);
+  font-weight: $font-weight-bold;
+}
+
+.huge-text {
+  font-size: rem-calc(90);
+  font-weight: $font-weight-bold;
+}
+
+@media all and (min-width: 768px) and (max-width: 991px) {
+  .huge-text {
+    font-size: rem-calc(115);
+    line-height: rem-calc(115);
+  }
+}
+

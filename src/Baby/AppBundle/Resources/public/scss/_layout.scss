@@ -1,4 +1,8 @@
-// Defaults
+body {
+  @include animation(background-normal 4s infinite alternate);
+  transition: all 2s;
+}
+
 .container {
   margin-right: 10px;
   padding-right: 10px;
@@ -31,6 +35,17 @@
 }
 .girl-text {
   color: $girl-color;
+}
+.boy-bg {
+  background-color: $boy-color !important;
+}
+.girl-bg {
+  background-color: $girl-color !important;
+}
+
+td > .switch {
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 // Phones <768px

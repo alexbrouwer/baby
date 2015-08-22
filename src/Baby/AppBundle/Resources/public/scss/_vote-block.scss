@@ -15,21 +15,32 @@
 
   margin: rem-calc(10);
 
+  transition: all 2s;
+
   &.boy {
     border-color: $boy-color;
-    &:hover, &:active, &:focus {
+    &:hover, &:active, &:focus, &.active {
       @include box-shadow(0 0 20px $boy-color);
     }
   }
   &.girl {
     border-color: $girl-color;
-    &:hover, &:active, &:focus {
+    &:hover, &:active, &:focus, &.active {
       @include box-shadow(0 0 20px $girl-color);
     }
   }
 
   &:hover, &:active, &:focus {
     color: inherit; // Stay the same
+  }
+
+  &.disabled {
+    &, &:hover, &:active, &:focus {
+      border-color: $oil;
+      color: $steel;
+      background-color: $jet;
+      @include box-shadow(0 0 20px $jet);
+    }
   }
 
   display: inline-block;

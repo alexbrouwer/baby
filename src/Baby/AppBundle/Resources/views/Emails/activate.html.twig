@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
+</head>
+<body>
+Hoi {{ voter.firstname }},<br>
+<br>
+Als je onderstaande link opent in je browser dan kom je er misschien wel achter of we een jongen of een meisje krijgen.<br>
+Snel openen dus!<br>
+<br>
+<a href="{{ url('baby_app_default_show', {key: voter.activationKey}) }}">Open mij!</a>
+<br><br>
+Liefs,<br>
+<br>
+Alex en Lies
+</body>
+</html>

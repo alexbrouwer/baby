@@ -108,14 +108,17 @@ class DefaultController extends Controller
     /**
      * @Route("/bedankt")
      * @Template()
+     *
+     * @param Request $request
+     * @return array
      */
     public function voteSavedAction(Request $request)
     {
         $voteStats = $this->getVoteStats();
 
         $vote = $request->query->get('vote');
-        $voteTotal = $voteStats[$vote.'_total'];
-        $votePercentage = $voteStats[$vote.'_percentage'];
+        $voteTotal = $voteStats[$vote . '_total'];
+        $votePercentage = $voteStats[$vote . '_percentage'];
 
         return array(
             'vote' => $vote,
@@ -161,5 +164,121 @@ class DefaultController extends Controller
         );
 
         return array_merge($voteStats, $data);
+    }
+
+    /**
+     * @Route("/manage")
+     * @Template()
+     */
+    public function manageAction(Request $request)
+    {
+        $voteRepository = $this->getEm()->getRepository('BabyAppBundle:Vote');
+
+        $voters = $voteRepository->findBy(array(), array('lastname' => 'ASC', 'firstname' => 'ASC'));
+
+        if ($request->isMethod(Request::METHOD_POST)) {
+            $activationIds = $request->request->get('switch', []);
+            foreach ($voters as $voter) {
+                if (in_array($voter->getId(), $activationIds)) {
+                    if (!$voter->getActivationKey()) {
+                        $this->activateVoter($voter);
+                    }
+                } else {
+                    $this->activateVoter($voter, true);
+                }
+            }
+        }
+
+        return array(
+            'voters' => $voters
+        );
+    }
+
+    /**
+     * @Route("/manage/resend/{id}")
+     *
+     * @param int $id
+     * @return array
+     */
+    public function manageResendAction($id)
+    {
+        $voter = $this->getEm()->find('BabyAppBundle:Vote', $id);
+        if ($voter && $voter->getActivationKey()) {
+            $this->activateVoter($voter);
+        }
+
+        return $this->redirectToRoute('baby_app_default_manage');
+    }
+
+    protected function activateVoter(Vote $voter, $deactivate = false)
+    {
+        $em = $this->getEm();
+
+        if (!$deactivate) {
+            $voteRepository = $em->getRepository('BabyAppBundle:Vote');
+
+            $fullKey = md5($voter->getEmail() . microtime(false));
+
+            $keyStart = 0;
+            $key = substr($fullKey, $keyStart, 8);
+            while ($voteRepository->findOneBy(array('activationKey' => $key)) && $keyStart + 8 <= strlen($fullKey)) {
+                $keyStart++;
+                $key = substr($fullKey, $keyStart, 8);
+            }
+        } else {
+            $key = null;
+        }
+
+        $voter->setActivationKey($key);
+        $em->persist($voter);
+        $em->flush();
+
+        if ($voter->getActivationKey()) {
+            $message = \Swift_Message::newInstance();
+            $message->setSubject('Baby Brouwer: Wat wordt het?');
+            $message->setFrom('brouwer.alexander@gmail.com');
+            $message->setTo($voter->getEmail());
+            $message->setBody(
+                $this->renderView('BabyAppBundle:Emails:activate.html.twig', array('voter' => $voter)),
+                'text/html'
+            );
+//            $message->addPart(
+//                $this->renderView('BabyAppBundle:Emails:activate.txt.twig', array('voter' => $voter)),
+//                'text/plain'
+//            );
+
+            $this->get('mailer')->send($message);
+        }
+    }
+
+    /**
+     * @Route("/watwordthet")
+     * @Template()
+     */
+    public function showAction(Request $request)
+    {
+        $activationKey = $request->query->get('key', false);
+        $voteRepository = $this->getEm()->getRepository('BabyAppBundle:Vote');
+        $voter = null;
+        if ($activationKey) {
+            $voter = $voteRepository->findOneBy(array('activationKey' => $activationKey));
+        }
+
+        if (!$voter) {
+            return $this->redirectToRoute('baby_app_default_cheater');
+        }
+
+        return array(
+            'voter' => $voter
+        );
+    }
+
+    /**
+     * @Route("/cheater")
+     * @Template()
+     */
+    public function cheaterAction()
+    {
+        return array();
     }
 }

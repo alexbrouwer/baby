@@ -1,0 +1,128 @@
+{% extends 'BabyAppBundle::default.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+        function startTimer(options) {
+            var iterator, startTime = Date.now(), diff, seconds, duration = options.duration;
+
+            function stop() {
+                if (iterator) {
+                    clearInterval(iterator);
+                    iterator = false;
+                }
+            }
+
+            function timer() {
+                // get the number of seconds that have elapsed since
+                // startTimer() was called
+                diff = duration - (((Date.now() - startTime) / 1000) | 0);
+
+                // does the same job as parseInt truncates the float
+                seconds = (diff % 60) | 0;
+
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                if (diff < 0 && options.onZero) {
+                    options.onZero(stop);
+                }
+                if (options.onInterval && iterator) {
+                    options.onInterval(seconds, stop)
+                }
+            }
+
+            // we don't want to wait a full second before the timer starts
+            timer();
+            iterator = setInterval(timer, options.interval);
+        }
+
+        function nextStep(currentStep, steps) {
+            var currentStepName = 'step' + currentStep;
+            var lastStepName = 'step' + (currentStep - 1);
+
+            if (steps[currentStepName]) {
+                $('.'+lastStepName).removeClass('active');
+                $('.'+currentStepName).addClass('active');
+                $('.'+currentStepName).addClass('fade-in');
+                steps[currentStepName]();
+            }
+        }
+
+        window.onload = function () {
+            var displayEl = $('#time');
+            var bodyEl = $('body');
+            var genderEl = $('.vote-block.swap');
+            var currentStep = 1;
+
+            var steps = {
+                step1: function () {
+                    bodyEl.addClass('fast');
+
+                    startTimer({
+                        interval: 1000, // every second
+                        duration: 10, // for 10 seconds
+                        onInterval: function (seconds, stop) {
+                            displayEl.html(seconds);
+                            genderEl.toggleClass('active');
+                            genderEl.toggleClass('disabled');
+                        },
+                        onZero: function (stop) {
+                            stop(); // stop this one
+
+                            currentStep++;
+                            nextStep(currentStep, steps);
+                        }
+                    });
+                },
+                step2: function () {
+                    bodyEl.addClass('girl-bg');
+                }
+            };
+
+            nextStep(currentStep, steps);
+        };
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div id="step-container" class="columns small-12 step-container text-center">
+            <div class="step step0 active">
+                Laden...
+            </div>
+            <div class="step step1">
+                <h1>Het wordt een..</h1>
+
+                <div class="vote-block boy swap active"><i class="fa fa-mars"></i></div>
+                <div class="vote-block girl swap disabled"><i class="fa fa-venus"></i></div>
+
+                <p>
+                    We houden het nog heel even spannend..<br>
+                    <br>
+                    Je weet het in:<br>
+                    <div id="time" class="big-text">10</div>
+                </p>
+            </div>
+            <div class="step step2">
+                <h1>We krijgen een</h1>
+
+                <div class="row">
+                    <div class="medium-4 columns medium-text-right small-text-center">
+                        <div class="vote-block girl active"><i class="fa fa-venus"></i></div>
+                    </div>
+                    <div class="medium-8 columns medium-text-left small-text-center">
+                        <h1 class="huge-text girl-text active">Meisje!</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

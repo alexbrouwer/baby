@@ -9463,17 +9463,25 @@ th.hide-for-touch {
     background-color: #dd989b;
   }
 }
-/* line 2, ../scss/_layout.scss */
+/* line 1, ../scss/_layout.scss */
+body {
+  -moz-animation: background-normal 4s infinite alternate;
+  -webkit-animation: background-normal 4s infinite alternate;
+  animation: background-normal 4s infinite alternate;
+  transition: all 2s;
+}
+
+/* line 6, ../scss/_layout.scss */
 .container {
   margin-right: 10px;
   padding-right: 10px;
 }
-/* line 6, ../scss/_layout.scss */
+/* line 10, ../scss/_layout.scss */
 .container > .row {
   margin-left: 0;
 }
 
-/* line 11, ../scss/_layout.scss */
+/* line 15, ../scss/_layout.scss */
 .main-container {
   background-color: #222222;
   min-height: 100px;
@@ -9487,28 +9495,44 @@ th.hide-for-touch {
   border-bottom-right-radius: 10px;
 }
 
-/* line 21, ../scss/_layout.scss */
+/* line 25, ../scss/_layout.scss */
 .back-link {
   margin-right: 10px;
   margin-bottom: 10px;
 }
-/* line 24, ../scss/_layout.scss */
+/* line 28, ../scss/_layout.scss */
 .back-link > a {
   color: #444444;
 }
 
-/* line 29, ../scss/_layout.scss */
+/* line 33, ../scss/_layout.scss */
 .boy-text {
   color: #8fb7cc;
 }
 
-/* line 32, ../scss/_layout.scss */
+/* line 36, ../scss/_layout.scss */
 .girl-text {
   color: #dd989b;
 }
 
+/* line 39, ../scss/_layout.scss */
+.boy-bg {
+  background-color: #8fb7cc !important;
+}
+
+/* line 42, ../scss/_layout.scss */
+.girl-bg {
+  background-color: #dd989b !important;
+}
+
+/* line 46, ../scss/_layout.scss */
+td > .switch {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
 @media all and (min-width: 768px) and (max-width: 991px) {
-  /* line 40, ../scss/_layout.scss */
+  /* line 55, ../scss/_layout.scss */
   .main-container {
     margin-top: 20px;
     padding: 20px;
@@ -9520,14 +9544,14 @@ th.hide-for-touch {
     border-bottom-right-radius: 20px;
   }
 
-  /* line 47, ../scss/_layout.scss */
+  /* line 62, ../scss/_layout.scss */
   .back-link {
     margin-right: 20px;
     margin-bottom: 20px;
   }
 }
 @media all and (min-width: 992px) and (max-width: 1199px) {
-  /* line 55, ../scss/_layout.scss */
+  /* line 70, ../scss/_layout.scss */
   .main-container {
     margin-top: 30px;
     padding: 30px;
@@ -9539,14 +9563,14 @@ th.hide-for-touch {
     border-bottom-right-radius: 30px;
   }
 
-  /* line 62, ../scss/_layout.scss */
+  /* line 77, ../scss/_layout.scss */
   .back-link {
     margin-right: 30px;
     margin-bottom: 30px;
   }
 }
 @media all and (min-width: 1200px) {
-  /* line 70, ../scss/_layout.scss */
+  /* line 85, ../scss/_layout.scss */
   .main-container {
     margin-top: 100px;
     padding: 100px;
@@ -9558,7 +9582,7 @@ th.hide-for-touch {
     border-bottom-right-radius: 100px;
   }
 
-  /* line 77, ../scss/_layout.scss */
+  /* line 92, ../scss/_layout.scss */
   .back-link {
     margin-right: 100px;
     margin-bottom: 100px;
@@ -9579,37 +9603,69 @@ th.hide-for-touch {
   width: 100px;
   height: 100px;
   margin: 0.625rem;
+  transition: all 2s;
   display: inline-block;
   text-align: center;
 }
-/* line 18, ../scss/_vote-block.scss */
+/* line 20, ../scss/_vote-block.scss */
 .vote-block.boy {
   border-color: #8fb7cc;
 }
-/* line 20, ../scss/_vote-block.scss */
-.vote-block.boy:hover, .vote-block.boy:active, .vote-block.boy:focus {
+/* line 22, ../scss/_vote-block.scss */
+.vote-block.boy:hover, .vote-block.boy:active, .vote-block.boy:focus, .vote-block.boy.active {
   -moz-box-shadow: 0 0 20px #8fb7cc;
   -webkit-box-shadow: 0 0 20px #8fb7cc;
   box-shadow: 0 0 20px #8fb7cc;
 }
-/* line 24, ../scss/_vote-block.scss */
+/* line 26, ../scss/_vote-block.scss */
 .vote-block.girl {
   border-color: #dd989b;
 }
-/* line 26, ../scss/_vote-block.scss */
-.vote-block.girl:hover, .vote-block.girl:active, .vote-block.girl:focus {
+/* line 28, ../scss/_vote-block.scss */
+.vote-block.girl:hover, .vote-block.girl:active, .vote-block.girl:focus, .vote-block.girl.active {
   -moz-box-shadow: 0 0 20px #dd989b;
   -webkit-box-shadow: 0 0 20px #dd989b;
   box-shadow: 0 0 20px #dd989b;
 }
-/* line 31, ../scss/_vote-block.scss */
+/* line 33, ../scss/_vote-block.scss */
 .vote-block:hover, .vote-block:active, .vote-block:focus {
   color: inherit;
 }
+/* line 38, ../scss/_vote-block.scss */
+.vote-block.disabled, .vote-block.disabled:hover, .vote-block.disabled:active, .vote-block.disabled:focus {
+  border-color: #333333;
+  color: #666666;
+  background-color: #222222;
+  -moz-box-shadow: 0 0 20px #222222;
+  -webkit-box-shadow: 0 0 20px #222222;
+  box-shadow: 0 0 20px #222222;
+}
 
-/* line 52, ../scss/app.scss */
-body {
-  -moz-animation: background-normal 4s infinite alternate;
-  -webkit-animation: background-normal 4s infinite alternate;
-  animation: background-normal 4s infinite alternate;
+/* line 2, ../scss/_steps.scss */
+.step-container .step {
+  display: none;
+}
+/* line 5, ../scss/_steps.scss */
+.step-container .step.active {
+  display: block;
+}
+
+/* line 11, ../scss/_steps.scss */
+.big-text {
+  font-size: 3.125rem;
+  font-weight: bold;
+}
+
+/* line 16, ../scss/_steps.scss */
+.huge-text {
+  font-size: 5.625rem;
+  font-weight: bold;
+}
+
+@media all and (min-width: 768px) and (max-width: 991px) {
+  /* line 22, ../scss/_steps.scss */
+  .huge-text {
+    font-size: 7.1875rem;
+    line-height: 7.1875rem;
+  }
 }
